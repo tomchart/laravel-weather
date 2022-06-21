@@ -10,6 +10,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
   {
     $response = Http::get(config('services.vc.baseUri') . $location, [
       'key' => config('services.vc.apiKey'),
+      'unitGroup' => 'uk',
       ]);
     return $response;
   }
