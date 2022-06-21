@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
+      $this->app->bind(
+          \App\Contracts\WeatherApi::class, // the weather interface
+          \App\Services\VisualCrossing::class // the api implementation
+      );
     }
 
     /**
