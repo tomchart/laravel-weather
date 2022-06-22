@@ -19,6 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/weather/{location}', function (WeatherApi $weatherApi) {
-  return $weatherApi->searchLocation(request()->location);
+Route::get('/weather/today/{location}', function (WeatherApi $weatherApi) {
+  return $weatherApi->todayLocation(request()->location);
+});
+
+Route::get('/weather/forecast/{location}', function (WeatherApi $weatherApi) {
+  return $weatherApi->forecastLocation(request()->location);
 });
