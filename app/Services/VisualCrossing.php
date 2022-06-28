@@ -17,7 +17,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
   }
   public function forecastLocation(string $location)
   {
-    $response = Http::get(config('services.vc.baseUri') . $location, [
+    $response = Http::get(config('services.vc.baseUri') . $location . '/next7days', [
       'key' => config('services.vc.apiKey'),
       'unitGroup' => 'uk',
       'include' => 'fcst,obs,histfcst,stats,days,hours,current,alerts'
