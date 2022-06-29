@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/register', [UserController::class, 'store']);
-Route::post('/login', [SessionController::class, 'store'])->middleware(['api', 'auth:sanctum']);
+Route::post('/login', [SessionController::class, 'store'])->middleware(['api']);
 
 Route::get('/weather/today/{location}', function (WeatherApi $weatherApi) {
   return $weatherApi->todayLocation(request()->location);
