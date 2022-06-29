@@ -1,6 +1,8 @@
 <?php
 
 use App\Contracts\WeatherApi;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/register', [UserController::class, 'store']);
+Route::post('/login', [SessionController::class, 'store'])->middleware(['api', 'auth:sanctum']);
 
 Route::get('/weather/today/{location}', function (WeatherApi $weatherApi) {
   return $weatherApi->todayLocation(request()->location);
