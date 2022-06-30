@@ -24,6 +24,7 @@ class UserController extends Controller
     ]);;
 
     Auth::login($user);
+    $request->session()->regenerate();
 
     return $user;
   }

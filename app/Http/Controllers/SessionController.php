@@ -16,11 +16,15 @@ class SessionController extends Controller
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
 
-        return json_encode(['foo', 'bar']);
+        return 'Authenticated';
     }
 
     return back()->withErrors([
         'email' => 'The provided credentials do not match our records.',
     ])->onlyInput('email');
+  }
+
+  public function show() {
+    return Auth::user();
   }
 }
