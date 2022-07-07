@@ -23,7 +23,7 @@ class UserController extends Controller
       'password' => Hash::make($request->password),
     ]);;
 
-    Auth::login($user);
+    Auth::login($user, $remember = true);
     $request->session()->regenerate();
 
     return $user;
