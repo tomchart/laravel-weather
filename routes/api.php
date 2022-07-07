@@ -21,6 +21,8 @@ Route::post('/register', [UserController::class, 'store'])->middleware(['api']);
 Route::post('/login', [SessionController::class, 'store'])->middleware(['api']);
 Route::get('/user', [SessionController::class, 'show'])->middleware(['api']);
 
+Route::post('/location/store', [UserLocationController::class, 'store'])->middleware(['api']);
+
 // to guard these routes add:
 // if (Auth::guard('admin')->attempt($credentials)) {
 // to controller (controller not currently in use for these routes)
