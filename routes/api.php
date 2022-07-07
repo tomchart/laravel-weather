@@ -3,6 +3,7 @@
 use App\Contracts\WeatherApi;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserLocationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
