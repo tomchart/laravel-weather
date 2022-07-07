@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [UserController::class, 'store'])->middleware(['api']);
 Route::post('/login', [SessionController::class, 'store'])->middleware(['api']);
+Route::post('/logout', [SessionController::class, 'destroy'])->middleware(['api']);
 Route::get('/user', [SessionController::class, 'show'])->middleware(['api']);
 
 Route::post('/location/store', [UserLocationController::class, 'store'])->middleware(['api']);
