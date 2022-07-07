@@ -13,18 +13,29 @@ class SessionController extends Controller
         'password' => ['required'],
     ]);
 
-    if (Auth::attempt($credentials)) {
+    if (Auth::attempt($credentials, $remember = true)) {
         $request->session()->regenerate();
 
-        return 'Authenticated';
+        return Auth::user();
     }
 
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
+    return response('Authentication error', 401);
+
+    // return [
+    //     'email' => 'The provided credentials do not match our records.',
+    // ];
   }
 
   public function show() {
     return Auth::user();
+  }
+
+  public function destroy(Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return [
+      'message' => 'logged out',
+    ];
   }
 }
