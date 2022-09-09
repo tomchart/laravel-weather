@@ -38,7 +38,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
             $currentDatetime->diffInHours($hourDatetime, false) >= 0 &&
             $currentDatetime->diffInHours($hourDatetime) % 3 == 0
           ) {
-            $formattedHourDatetime = $hourDatetime->format("Y-m-d H:i:s T");
+            $formattedHourDatetime = $hourDatetime->format("d/m/Y H:i:s");
             $futureHours[] = $this->parseHour($hour, $formattedHourDatetime);
           }
         }
@@ -52,9 +52,9 @@ class VisualCrossing implements \App\Contracts\WeatherApi
     $responseObj = json_decode($response);
 
     // create datetime object from date, time, timezone strings in response
-    $datetime = date_create_from_format(
-      "Y-m-d H:i:s T",
-      $responseObj->days[0]->datetime . " " . $responseObj->currentConditions->datetime . " " . $responseObj->timezone
+    $datetime = new Carbon(
+      $responseObj->days[0]->datetime . " " . $responseObj->currentConditions->datetime . " ",
+      $responseObj->timezone
     );
 
     // create $parsed array for required data, store currentConditions data
@@ -66,7 +66,9 @@ class VisualCrossing implements \App\Contracts\WeatherApi
         "conditions" => $responseObj->currentConditions->conditions,
         "precip" => $responseObj->currentConditions->precip,
         "windSpeed" => $responseObj->currentConditions->windspeed,
-        "datetime" => date_format($datetime, "Y-m-d H:i:s T"),
+        "datetime" => $datetime->toDayDateTimeString(),
+        "humanDate" => $datetime->format("l jS \of F Y"),
+        "humanTime" => $datetime->format("g:i A"),
         "resolvedAddress" => $responseObj->resolvedAddress,
         "description" => $responseObj->description,
       ],
