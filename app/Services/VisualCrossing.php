@@ -111,6 +111,8 @@ class VisualCrossing implements \App\Contracts\WeatherApi
       'unitGroup' => 'uk',
       'include' => 'fcst,obs,histfcst,stats,days,hours,current,alerts'
       ]);
-    return $response;
+    // parse response
+    $responseParsed = $this->parseResponse($response);
+    return $responseParsed;
   }
 }
