@@ -9,7 +9,9 @@ class VisualCrossing implements \App\Contracts\WeatherApi
 {
   private function parseHour($hour, $datetime) {
     $futureHour = [
-      "datetime" => $datetime,
+      "datetime" => $datetime->format("d/m/y H:i"),
+      "date" => $datetime->format("d/m/y"),
+      "time" => $datetime->format("H:i"),
       "temp" => $hour->temp,
       "feelsLike" => $hour->feelslike,
       "humidity" => $hour->humidity,
@@ -38,8 +40,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
             $currentDatetime->diffInHours($hourDatetime, false) >= 0 &&
             $currentDatetime->diffInHours($hourDatetime) % 3 == 0
           ) {
-            $formattedHourDatetime = $hourDatetime->format("d/m/y H:i");
-            $futureHours[] = $this->parseHour($hour, $formattedHourDatetime);
+            $futureHours[] = $this->parseHour($hour, $hourDatetime);
           }
         }
       }
