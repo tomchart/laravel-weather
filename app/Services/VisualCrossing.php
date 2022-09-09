@@ -38,7 +38,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
             $currentDatetime->diffInHours($hourDatetime, false) >= 0 &&
             $currentDatetime->diffInHours($hourDatetime) % 3 == 0
           ) {
-            $formattedHourDatetime = $hourDatetime->format("d/m/Y H:i:s");
+            $formattedHourDatetime = $hourDatetime->format("d/m/y H:i");
             $futureHours[] = $this->parseHour($hour, $formattedHourDatetime);
           }
         }
