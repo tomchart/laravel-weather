@@ -32,9 +32,10 @@ class VisualCrossing implements \App\Contracts\WeatherApi
       $dayDate = new Carbon($day->datetime, $tz);
       if ($currentDatetime->diffInDays($dayDate) < 2) {
         foreach ($day->hours as $hour) {
-          $dayDatetime = new Carbon($day->datetime . " " . $hour->datetime, $tz);
-          if ($currentDatetime->diffInHours($dayDatetime, false) <= 23 && $currentDatetime->diffInHours($dayDatetime, false) >= 0) {
-            $futureHours[] = $this->parseHour($hour, $day->datetime);
+          $hourDatetime = new Carbon($day->datetime . " " . $hour->datetime, $tz);
+          if ($currentDatetime->diffInHours($hourDatetime, false) <= 23 && $currentDatetime->diffInHours($hourDatetime, false) >= 0) {
+            $formattedHourDatetime = $hourDatetime->format("Y-m-d H:i:s T");
+            $futureHours[] = $this->parseHour($hour, $formattedHourDatetime);
           }
         }
       }
