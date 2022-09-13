@@ -92,6 +92,16 @@ class VisualCrossing implements \App\Contracts\WeatherApi
     return $parsedJson;
   }
 
+  private function verifyResponse(String $response) {
+    if (str_contains($response, "Invalid location found. Please check your location parameter:")) {
+      return json_encode([
+        "error" => "Invalid location - please check your search parameter.",
+      ]);
+    } else {
+      return null;
+    }
+  }
+
   public function todayLocation(string $location)
   {
     $response = Http::get(config('services.vc.baseUri') . $location . '/next24hours', [
