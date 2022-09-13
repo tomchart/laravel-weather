@@ -75,6 +75,7 @@ class VisualCrossing implements \App\Contracts\WeatherApi
       ],
       "futureHours" => $this->stripFutureHours($responseObj),
       "days" => [],
+      "error" => null,
     ];
 
     // store day data in $parsed
@@ -109,6 +110,10 @@ class VisualCrossing implements \App\Contracts\WeatherApi
       'unitGroup' => 'uk',
       'include' => 'fcst,obs,histfcst,stats,hours,current,alerts'
       ]);
+    $verifyOutcome = $this->verifyResponse($response);
+    if ($verifyOutcome) {
+      return $verifyOutcome;
+    }
 
     // parse response
     $responseParsed = $this->parseResponse($response);
